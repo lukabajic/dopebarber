@@ -69,6 +69,8 @@ export default {
     return {
       playing: false,
       ended: false,
+
+      showVideoMessage: false,
     }
   },
 
@@ -87,13 +89,17 @@ export default {
   computed: {
     showPlayAgainButton() {
       if (this.$device.isDesktop) return false
-      return !this.playing && !this.ended
+      return this.showVideoMessage && !this.playing && !this.ended
     },
 
     showLogos() {
       if (this.$device.isDesktop) return true
       return this.playing || this.ended
     },
+  },
+
+  created() {
+    setTimeout(() => (this.showVideoMessage = true), 3000)
   },
 
   mounted() {
