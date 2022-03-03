@@ -72,18 +72,6 @@ export default {
     }
   },
 
-  computed: {
-    showPlayAgainButton() {
-      if (this.$device.isDesktop) return false
-      return !this.playing && !this.ended
-    },
-
-    showLogos() {
-      if (this.$device.isDesktop) return true
-      return this.playing || this.ended
-    },
-  },
-
   head: {
     title: 'Dope Cuts and Shaves',
     meta: [
@@ -94,6 +82,18 @@ export default {
           'The dopest barber shop in town. Come and get your haircut and shaves. Rember to keep it fresh',
       },
     ],
+  },
+
+  computed: {
+    showPlayAgainButton() {
+      if (this.$device.isDesktop) return false
+      return !this.playing && !this.ended
+    },
+
+    showLogos() {
+      if (this.$device.isDesktop) return true
+      return this.playing || this.ended
+    },
   },
 
   mounted() {

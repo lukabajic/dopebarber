@@ -14,7 +14,7 @@
         <img src="~/assets/cenovnik.png" alt="Cenovnik" />
       </div>
 
-      <base-button routerLink to="/appointments">Book Now</base-button>
+      <base-button router-link to="/appointments">Book Now</base-button>
     </div>
   </div>
 </template>
