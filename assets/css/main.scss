@@ -1,0 +1,94 @@
+:root {
+  --blue: #1a387c;
+  --blue-2: #3443aa;
+  --orange: #feaf00;
+  --black: #000000;
+  --white: #ffffff;
+  --white-2: #fcfcfc;
+  --white-3: #b4b4b4;
+  --blue-radial: #366aab, #1a387c;
+}
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  line-height: 1.15;
+  font-size: 1.6rem;
+  background-color: var(--black);
+  color: var(--white);
+  font-weight: 400;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  border: 0;
+  text-decoration: none;
+  text-decoration-skip-ink: auto;
+}
+
+.hvr {
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover,
+  &:active,
+  &:focus {
+    cursor: pointer;
+  }
+}
+
+.hvr-grow {
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgb(0 0 0 / 0%);
+  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+  &:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+  }
+}
+
+.main {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.75s;
+  transform: translateZ(0);
+  opacity: 1;
+}
+
+.page-enter,
+.page-leave-to {
+  transform: translateZ(-80px);
+  opacity: 0;
+}
