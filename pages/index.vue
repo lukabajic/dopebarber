@@ -75,6 +75,14 @@ export default {
       playing: false,
     }
   },
+
+  mounted() {
+    const video = document.querySelector('video')
+
+    video.addEventListener('play', () => {
+      this.playing = true
+    })
+  },
 }
 </script>
 
@@ -183,26 +191,28 @@ export default {
 
   &__cover-logo {
     @media only screen and (max-width: 768px) {
-      animation: fade-in 1s both;
       animation-delay: 4s;
     }
   }
 
   &__cover-msg {
     @media only screen and (max-width: 768px) {
-      animation: fade-in 1s both;
       animation-delay: 5s;
     }
   }
 
-  @keyframes fade-in {
-    from {
-      transform: scale(0.5);
-      opacity: 0;
-    }
-    to {
-      transform: scale(1);
-      opacity: 1;
+  .fade-in {
+    animation: fade-in 1s both;
+
+    @keyframes fade-in {
+      from {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   }
 }
