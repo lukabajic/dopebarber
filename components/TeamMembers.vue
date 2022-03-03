@@ -3,10 +3,10 @@
     <div class="TeamMembers__container">
       <div class="TeamMembers__pictures">
         <div class="TeamMembers__picture">
-          <!-- <img src="" alt=""> -->
+          <img src="~/assets/test fotka-2.png" />
         </div>
         <div class="TeamMembers__picture">
-          <!-- <img src="" alt=""> -->
+          <img src="~/assets/test fotka-2.png" />
         </div>
       </div>
 
@@ -48,6 +48,13 @@ export default {
   }
 
   &__picture {
+    height: 30rem;
+    width: 20rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(var(--blue-radial));
+
     @media only screen and (max-width: 768px) {
       margin-bottom: 3rem;
     }
@@ -58,10 +65,14 @@ export default {
       }
     }
 
-    height: 30rem;
-    width: 20rem;
-    border-radius: 50%;
-    background: radial-gradient(var(--blue-radial));
+    img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
   }
 
   &__price {

@@ -10,17 +10,24 @@
 
       <div class="IndexPage__cover">
         <img
+          v-if="showLogos"
           class="IndexPage__cover-logo"
-          :class="{ 'fade-in': playing }"
           src="~/assets/logo.png"
           alt="Dope"
         />
         <img
+          v-if="showLogos"
           class="IndexPage__cover-msg"
-          :class="{ 'fade-in': playing }"
           src="~/assets/poruka.svg"
           alt="Cuts and Shaves"
         />
+        <p
+          v-if="showPlayAgainButton"
+          class="IndexPage__click-to-play"
+          @click="playVideo"
+        >
+          Click here to play video.
+        </p>
       </div>
 
       <div class="IndexPage__about-start">
@@ -58,6 +65,25 @@
 export default {
   name: 'IndexPage',
 
+  data() {
+    return {
+      playing: false,
+      ended: false,
+    }
+  },
+
+  computed: {
+    showPlayAgainButton() {
+      if (this.$device.isDesktop) return false
+      return !this.playing && !this.ended
+    },
+
+    showLogos() {
+      if (this.$device.isDesktop) return true
+      return this.playing || this.ended
+    },
+  },
+
   head: {
     title: 'Dope Cuts and Shaves',
     meta: [
@@ -70,18 +96,27 @@ export default {
     ],
   },
 
-  data() {
-    return {
-      playing: false,
-    }
-  },
-
   mounted() {
     const video = document.querySelector('video')
 
-    video.addEventListener('play', () => {
-      this.playing = true
-    })
+    video &&
+      video.addEventListener('play', () => {
+        this.playing = true
+      })
+
+    video &&
+      video.addEventListener('ended', () => {
+        this.playing = false
+        this.ended = true
+      })
+  },
+
+  methods: {
+    playVideo() {
+      if (this.playing) return
+      const video = document.querySelector('video')
+      video && video.play()
+    },
   },
 }
 </script>
@@ -158,6 +193,12 @@ export default {
     }
   }
 
+  &__click-to-play {
+    font-size: 2.1rem;
+    line-height: 2.4rem;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
   &__team {
     position: relative;
     background: var(--black);
@@ -190,29 +231,27 @@ export default {
   }
 
   &__cover-logo {
+    animation: fade-in 1s both;
     @media only screen and (max-width: 768px) {
       animation-delay: 4s;
     }
   }
 
   &__cover-msg {
+    animation: fade-in 1s both;
     @media only screen and (max-width: 768px) {
       animation-delay: 5s;
     }
   }
 
-  .fade-in {
-    animation: fade-in 1s both;
-
-    @keyframes fade-in {
-      from {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
+  @keyframes fade-in {
+    from {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
     }
   }
 }
