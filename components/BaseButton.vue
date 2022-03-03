@@ -99,6 +99,8 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
 
+    width: max-content;
+
     display: block;
     font-size: 1.7rem;
     line-height: 2.1rem;
