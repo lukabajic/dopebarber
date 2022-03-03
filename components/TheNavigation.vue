@@ -149,7 +149,7 @@ export default {
 
   &__book-now {
     @media only screen and (max-width: 992px) {
-      max-width: 14rem !important;
+      max-width: 16rem !important;
       position: absolute !important;
       top: 1.2rem;
       right: 1.5rem;
