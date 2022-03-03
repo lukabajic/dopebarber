@@ -2,7 +2,7 @@
   <div class="IndexPage">
     <section class="IndexPage__banner">
       <div class="IndexPage__video">
-        <video v-if="!$device.isDesktop" playsinline autoplay muted ref="video">
+        <video v-if="!$device.isDesktop" playsinline autoplay muted preload>
           <source src="~/assets/video/klip-mobilni.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -74,12 +74,6 @@ export default {
     return {
       playing: false,
     }
-  },
-
-  mounted() {
-    console.log(this.$refs)
-    this.$refs.video.play()
-    this.playing = true
   },
 }
 </script>
