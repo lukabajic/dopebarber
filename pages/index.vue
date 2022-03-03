@@ -2,13 +2,7 @@
   <div class="IndexPage">
     <section class="IndexPage__banner">
       <div class="IndexPage__video">
-        <video
-          v-if="!$device.isDesktop"
-          autoplay
-          muted
-          defaultMuted
-          playsinline
-        >
+        <video v-if="!$device.isDesktop" muted ref="video">
           <source src="~/assets/video/klip-mobilni.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
@@ -16,12 +10,14 @@
 
       <div class="IndexPage__cover">
         <img
-          class="IndexPage__cover-logo fade-in"
+          class="IndexPage__cover-logo"
+          :class="{ 'fade-in': playing }"
           src="~/assets/logo.png"
           alt="Dope"
         />
         <img
-          class="IndexPage__cover-msg fade-in"
+          class="IndexPage__cover-msg"
+          :class="{ 'fade-in': playing }"
           src="~/assets/poruka.svg"
           alt="Cuts and Shaves"
         />
@@ -72,6 +68,17 @@ export default {
           'The dopest barber shop in town. Come and get your haircut and shaves. Rember to keep it fresh',
       },
     ],
+  },
+
+  data() {
+    return {
+      playing: false,
+    }
+  },
+
+  mounted() {
+    this.$refs.video.play()
+    this.playing = true
   },
 }
 </script>
