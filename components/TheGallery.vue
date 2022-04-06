@@ -3,16 +3,14 @@
     <div class="TheGallery__container">
       <h2 class="TheGallery__header2">Follow our journey</h2>
 
-      <div class="TheGallery__gallery">
+      <div v-if="images" class="TheGallery__gallery">
         <div
           v-for="(img, i) of images"
-          :key="i"
-          class="TheGallery__item"
+          :key="img.id + i"
+          class="TheGallery__img"
           @click="selectImage(img)"
         >
-          <div class="TheGallery__img">
-            <img v-if="img.src" :src="img.src" :alt="img.altText" />
-          </div>
+          <img v-if="img.src" :src="img.src" :alt="img.altText" />
         </div>
       </div>
 
@@ -21,25 +19,27 @@
 
         <div v-if="selectedImage" class="TheGallery__modal" @click.stop>
           <img
-            class="TheGallery__modal-img"
             v-if="selectedImage.src"
+            class="TheGallery__modal-img"
             :src="selectedImage.src"
             :alt="selectedImage.altText"
           />
         </div>
 
-        <button @click.stop="closeModal" class="TheGallery__modal-close">
-          <img src="~/assets/icons/taster-izlaz.png" />
+        <button class="TheGallery__modal-prev" @click.stop="prevImage">
+          <img
+            v-if="$device.isDesktop"
+            src="~/assets/icons/taster-strelica-levo.png"
+          />
         </button>
-
-        <button @click.stop="prevImage" class="TheGallery__modal-prev">
-          <img src="~/assets/icons/taster-strelica-levo.png" />
-        </button>
-        <button @click.stop="nextImage" class="TheGallery__modal-next">
-          <img src="~/assets/icons/taster-strelica-desno.png" /></button
+        <button class="TheGallery__modal-next" @click.stop="nextImage">
+          <img
+            v-if="$device.isDesktop"
+            src="~/assets/icons/taster-strelica-desno.png"
+          /></button
       ></template>
 
-      <base-button routerLink to="/appointments" class="TheGallery__book-now"
+      <base-button router-link to="/appointments" class="TheGallery__book-now"
         >Book Now</base-button
       >
     </div>
@@ -50,44 +50,17 @@
 export default {
   name: 'TheGallery',
 
+  props: {
+    images: {
+      type: Array,
+      required: false,
+      default: null,
+    },
+  },
+
   data() {
     return {
       selectedImage: null,
-
-      images: [
-        {
-          id: 1,
-          src: require('~/assets/images/dope4.jpeg'),
-        },
-        {
-          id: 2,
-          src: require('~/assets/images/dope5.jpeg'),
-        },
-        {
-          id: 3,
-          src: require('~/assets/images/dope6.jpeg'),
-        },
-        {
-          id: 4,
-          src: require('~/assets/images/dope7.jpeg'),
-        },
-        {
-          id: 5,
-          src: require('~/assets/images/dope8.jpeg'),
-        },
-        {
-          id: 6,
-          src: require('~/assets/images/dope9.jpeg'),
-        },
-        {
-          id: 7,
-          src: require('~/assets/images/dope10.jpeg'),
-        },
-        {
-          id: 8,
-          src: require('~/assets/images/dope11.jpeg'),
-        },
-      ],
     }
   },
 
@@ -133,8 +106,8 @@ export default {
   }
 
   &__header2 {
-    font-size: 3rem;
-    line-height: 3.6rem;
+    font-size: 5.2rem;
+    line-height: 6.24rem;
     margin-bottom: 3rem;
     color: var(--white);
     text-align: center;
@@ -146,6 +119,11 @@ export default {
     grid-template-rows: repeat(2, 1fr);
     width: 100%;
     margin-bottom: 3rem;
+    grid-gap: 2rem;
+
+    @media only screen and (max-width: 992px) {
+      grid-gap: 1.5rem;
+    }
 
     @media only screen and (max-width: 992px) {
       grid-template-columns: repeat(2, 1fr);
@@ -153,36 +131,16 @@ export default {
     }
   }
 
-  &__item {
-    position: relative;
-    padding-top: 100%;
-  }
-
   &__img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-
     img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       display: block;
-      max-width: 48rem;
+      width: 100%;
       height: auto;
       transition: all 0.2s;
 
-      @media only screen and (max-width: 768px) {
-        max-width: 24rem;
-      }
-
       &:hover {
         cursor: pointer;
-        transform: translate(-50%, -50%) scale(1.05);
+        transform: scale(1.05);
         filter: blur(0.1rem);
       }
     }
@@ -195,23 +153,18 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    height: 100%;
-    max-height: 100vh;
-    width: max-content;
-    max-width: 80vw;
+    height: 90vh;
+    width: 90vh;
 
-    @media only screen and (max-width: 768px) {
-      max-width: 100vw;
+    @media only screen and (max-width: 992px) {
+      height: 100vw;
+      width: 100vw;
     }
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   &__modal-img {
-    height: auto;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
 
     animation: fade-in 0.5s both;
 
@@ -224,30 +177,6 @@ export default {
         opacity: 1;
         transform: scale(1);
       }
-    }
-  }
-
-  &__modal-close {
-    background: transparent;
-    outline: none;
-    position: fixed;
-    top: 2.5vw;
-    right: 2.5vw;
-    width: 5vw;
-    z-index: 1050;
-    transform: perspective(1px) translateZ(0);
-
-    box-shadow: 0 0 1px rgb(0 0 0 / 0%);
-    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
-
-    @media only screen and (max-width: 768px) {
-      width: 10vw;
-    }
-
-    &:hover {
-      cursor: pointer;
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
     }
   }
 
@@ -265,24 +194,32 @@ export default {
 
     width: 5vw;
 
-    @media only screen and (max-width: 768px) {
-      opacity: 0.9;
-      width: 10vw;
-    }
-
     &:hover {
       cursor: pointer;
       -webkit-transform: translateY(-50%) scale(1.1);
       transform: translateY(-50%) scale(1.1);
     }
+
+    @media only screen and (max-width: 992px) {
+      width: 20vw;
+      height: 100vh;
+    }
   }
 
   &__modal-prev {
     left: 2.5vw;
+
+    @media only screen and (max-width: 992px) {
+      left: 0;
+    }
   }
 
   &__modal-next {
     right: 2.5vw;
+
+    @media only screen and (max-width: 992px) {
+      right: 0;
+    }
   }
 }
 </style>

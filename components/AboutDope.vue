@@ -1,29 +1,23 @@
 <template>
-  <div class="AboutDope" id="about">
+  <div id="about" class="AboutDope">
     <div class="AboutDope__container">
-      <h1 class="AboutDope__header1">About Dope</h1>
-      <h2 class="AboutDope__header2">Barbershop</h2>
-      <p class="AboutDope__paragraph">
-        Lorem ipsum dolor sit amet <br />consectetur adipiscing elit
-      </p>
-      <p class="AboutDope__paragraph">
-        sed do eiusmod tempor incididunt ut labore <br />et dolore magna aliqua
-      </p>
-      <p class="AboutDope__paragraph">Ut enim ad minim veniam</p>
-      <p class="AboutDope__paragraph">
-        Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id est laborum.
-      </p>
+      <h1 v-if="title" class="AboutDope__header1">{{ title }}</h1>
+      <h2 v-if="subtitle" class="AboutDope__header2">{{ subtitle }}</h2>
+      <template v-if="content">
+        <p
+          v-for="(c, i) in content"
+          :key="i"
+          class="AboutDope__paragraph"
+          v-html="c"
+        />
+      </template>
 
-      <base-button routerLink to="/appointments" class-name="AboutDope__button"
+      <base-button router-link to="/appointments" class-name="AboutDope__button"
         >Book Now</base-button
       >
 
-      <div class="AboutDope__working" v-if="$device.isDesktop">
-        <img src="~/assets/radno_vreme.png" alt="Radno vreme" />
+      <div v-if="$device.isDesktop && workingTime" class="AboutDope__working">
+        <img :src="workingTime" alt="Radno vreme" />
       </div>
     </div>
   </div>
@@ -32,6 +26,30 @@
 <script>
 export default {
   name: 'AboutDope',
+
+  props: ['about'],
+
+  computed: {
+    title() {
+      if (!this.about) return null
+      return this.about.title
+    },
+
+    subtitle() {
+      if (!this.about) return null
+      return this.about.subtitle
+    },
+
+    content() {
+      if (!this.about) return null
+      return this.about.content
+    },
+
+    workingTime() {
+      if (!this.about) return null
+      return this.about.workingTime
+    },
+  },
 }
 </script>
 
@@ -51,8 +69,8 @@ export default {
   }
 
   &__header1 {
-    font-size: 4rem;
-    line-height: 4.8rem;
+    font-size: 5.2rem;
+    line-height: 6.24rem;
   }
 
   &__header2 {
@@ -62,8 +80,8 @@ export default {
   }
 
   &__paragraph {
-    font-size: 1.7rem;
-    line-height: 2.1rem;
+    font-size: 1.95rem;
+    line-height: 2.4rem;
 
     &:not(:last-child) {
       margin-bottom: 2rem;

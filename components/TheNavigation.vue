@@ -6,13 +6,13 @@
       'TheNavigation--mobile': !$device.isDesktop,
     }"
   >
-    <base-backdrop
+    <!-- <base-backdrop
       v-if="$device.isMobileOrTablet && isMenuOpen"
       @backdrop-clicked="handleBackdropClicked"
-    />
+    /> -->
 
     <nav class="TheNavigation__container">
-      <div
+      <!-- <div
         v-if="$device.isMobileOrTablet"
         class="TheNavigation__toggle-icon"
         :class="{ open: isMenuOpen }"
@@ -24,30 +24,33 @@
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </div> -->
 
+      <!-- 'TheNavigation__left--open': isMenuOpen, -->
       <ul
         class="TheNavigation__left"
         :class="{
           'TheNavigation__left--desktop': $device.isDesktop,
           'TheNavigation__left--mobile': !$device.isDesktop,
-          'TheNavigation__left--open': isMenuOpen,
         }"
       >
-        <li
-          v-for="(l, i) in computedLinks"
-          :key="i"
-          class="TheNavigation__item"
-        >
+        <li v-for="(l, i) in links" :key="i" class="TheNavigation__item">
           <nuxt-link v-if="l.to" class="hvr hvr-grow" :to="l.to">{{
             l.text
           }}</nuxt-link>
           <a v-if="l.href" class="hvr hvr-grow" :href="l.href">{{ l.text }}</a>
+          <button
+            v-if="l.onClick"
+            class="hvr hvr-grow"
+            @click="dynamicFn(l.onClick)"
+          >
+            {{ l.text }}
+          </button>
         </li>
       </ul>
 
       <div class="TheNavigation__right">
-        <div class="TheNavigation__icons" v-if="$device.isDesktop">
+        <div v-if="$device.isDesktop" class="TheNavigation__icons">
           <a
             class="TheNavigation__icon hvr hvr-grow"
             href="https://www.instagram.com/dope.belgrade"
@@ -68,8 +71,8 @@
         </div>
 
         <base-button
-          routerLink
-          to="/appointments"
+          header
+          :on-click="toggleBooker"
           class-name="TheNavigation__book-now"
           >Book Now</base-button
         >
@@ -79,38 +82,38 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'TheNavigation',
 
   data() {
     return {
-      isMenuOpen: false,
+      // isMenuOpen: false,
 
       links: [
         { text: 'Home', to: '/', onlyMoblie: true },
         { text: 'About', href: '#about' },
         { text: 'Gallery', href: '#gallery' },
-        { text: 'Book Now', to: '/appointments' },
+        { text: 'Book Now', onClick: 'toggleBooker' },
         { text: 'Contact', href: 'tel:+38162776911' },
       ],
     }
   },
 
-  computed: {
-    computedLinks() {
-      // if (this.$device.isDesktop) return this.links.filter((l) => !l.onlyMoblie)
-      return this.links
-    },
-  },
-
   methods: {
-    handleTogglerClicked() {
-      this.isMenuOpen = !this.isMenuOpen
-    },
+    ...mapMutations(['toggleBooker']),
 
-    handleBackdropClicked() {
-      this.isMenuOpen = false
+    dynamicFn(name) {
+      this[name]()
     },
+    // handleTogglerClicked() {
+    //   this.isMenuOpen = !this.isMenuOpen
+    // },
+
+    // handleBackdropClicked() {
+    //   this.isMenuOpen = false
+    // },
   },
 }
 </script>
@@ -214,9 +217,14 @@ export default {
       }
     }
 
-    a {
+    a,
+    button {
       position: relative;
       display: inline-block;
+
+      background: transparent;
+      outline: none;
+      border: none;
 
       text-decoration-skip-ink: auto;
       text-decoration: none;
@@ -224,6 +232,8 @@ export default {
       transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 
       font-weight: 400;
+      font-size: 1.6rem;
+      line-height: 1.84rem;
 
       &,
       &:link,
@@ -254,8 +264,8 @@ export default {
     }
 
     img {
-      width: 2.7rem;
-      height: 2.7rem;
+      width: 3.8rem;
+      height: 3.8rem;
     }
   }
 

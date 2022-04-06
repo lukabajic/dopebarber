@@ -1,20 +1,22 @@
 <template>
   <div class="TeamMembers">
     <div class="TeamMembers__container">
-      <div class="TeamMembers__pictures">
-        <div class="TeamMembers__picture">
-          <img src="~/assets/test fotka-2.png" />
-        </div>
-        <div class="TeamMembers__picture">
-          <img src="~/assets/test fotka-2.png" />
+      <div v-if="team" class="TeamMembers__pictures">
+        <div v-for="(m, i) in team" :key="i" class="TeamMembers__picture">
+          <img :src="m.photo" :alt="m.name" />
         </div>
       </div>
 
-      <div class="TeamMembers__price">
-        <img src="~/assets/cenovnik.png" alt="Cenovnik" />
+      <div v-if="prices" class="TeamMembers__price">
+        <img :src="prices" alt="Cenovnik" />
       </div>
 
-      <base-button router-link to="/appointments">Book Now</base-button>
+      <base-button
+        router-link
+        to="/appointments"
+        class-name="TeamMembers__button"
+        >Book Now</base-button
+      >
     </div>
   </div>
 </template>
@@ -22,6 +24,19 @@
 <script>
 export default {
   name: 'TeamMembers',
+
+  props: {
+    team: {
+      type: Array,
+      required: false,
+      default: null,
+    },
+    prices: {
+      type: String,
+      required: false,
+      default: null,
+    },
+  },
 }
 </script>
 
@@ -48,13 +63,6 @@ export default {
   }
 
   &__picture {
-    height: 30rem;
-    width: 20rem;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    background: radial-gradient(var(--blue-radial));
-
     @media only screen and (max-width: 768px) {
       margin-bottom: 3rem;
     }
@@ -66,11 +74,7 @@ export default {
     }
 
     img {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: auto;
+      width: 22rem;
       display: block;
     }
   }

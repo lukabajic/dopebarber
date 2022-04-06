@@ -65,22 +65,120 @@
         >
       </div>
     </div>
+
+    <div class="TheFooter__chaos">
+      <div class="TheFooter__chaos-button-container">
+        <button
+          class="TheFooter__chaos-button TheFooter__chaos-button--insta"
+          v-html="insta"
+        />
+      </div>
+      <div class="TheFooter__chaos-button-container">
+        <button
+          class="TheFooter__chaos-button TheFooter__chaos-button--yt"
+          v-html="yt"
+        />
+      </div>
+    </div>
   </footer>
 </template>
 
 <script>
 export default {
   name: 'TheFooter',
+
+  data() {
+    const insta = require(`~/assets/icons/logo-instagram.svg?raw`)
+    const yt = require(`~/assets/icons/logo-youtube.svg?raw`)
+    return { insta, yt }
+  },
 }
 </script>
 
 <style lang="scss">
 .TheFooter {
   background: var(--black);
-  padding: 0 0 3rem;
+  padding: 5rem 0 0;
+
+  &__chaos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0.1rem;
+
+    @media only screen and (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  //#E3E3E3
+
+  &__chaos-button-container {
+    width: 100%;
+    &:hover {
+      cursor: pointer;
+
+      button {
+        fill: var(--orange);
+        transform: rotateX(180deg);
+      }
+    }
+  }
+
+  &__chaos-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    display: block;
+    background: #d9d9d9;
+    height: 10rem;
+
+    fill: #333333;
+
+    transition: 0.3s all;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+
+    &::before {
+      color: var(--orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotateX(-180deg);
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+      transition: 0.3s all;
+      background: #d9d9d9;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    &--yt {
+      &::before {
+        content: 'YouTube';
+      }
+    }
+
+    &--insta {
+      &::before {
+        content: 'Instagram';
+      }
+    }
+
+    svg {
+      width: 4rem;
+      height: auto;
+    }
+  }
 
   &__container {
-    padding: 3rem 0 0;
     width: 100%;
     max-width: 70vw;
     margin: 0 auto;
@@ -88,10 +186,12 @@ export default {
     grid-template-columns: repeat(4, 1fr);
 
     @media only screen and (min-width: 768px) {
-      grid-gap: 6.4rem;
+      grid-gap: 5rem;
     }
 
-    border-top: 1px solid var(--orange);
+    margin-bottom: 5rem;
+
+    // border-top: 1px solid var(--orange);
 
     @media only screen and (max-width: 992px) {
       grid-template-columns: repeat(2, 1fr);
@@ -108,6 +208,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     @media only screen and (max-width: 768px) {
       &:not(:last-child) {
@@ -137,8 +238,8 @@ export default {
   &__working-days,
   &__working-time {
     color: var(--white-3);
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.95rem;
+    line-height: 2.6rem;
   }
 
   &__working-time {
@@ -160,8 +261,8 @@ export default {
   }
 
   &__phone {
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.95rem;
+    line-height: 2.6rem;
     font-weight: 500;
     text-decoration: none;
     color: var(--white-2);
@@ -183,18 +284,17 @@ export default {
     text-decoration: none;
     color: var(--white-2);
     font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 2rem;
-
-    &:hover {
+    font-size: 1.95rem;
+    line-height: 2.6rem;
+    s &:hover {
       color: var(--white);
     }
   }
 
   &__insta-icon,
   &__address-icon {
-    width: 2rem;
-    height: 2rem;
+    width: 2.6rem;
+    height: 2.6rem;
     margin-right: 1rem;
   }
 
@@ -204,8 +304,8 @@ export default {
 
   &__city {
     color: var(--white-3);
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.95rem;
+    line-height: 2.6rem;
 
     @media only screen and (max-width: 768px) {
       margin-bottom: 0.5rem;
@@ -217,8 +317,8 @@ export default {
     align-items: center;
     color: var(--white-2);
     font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 2rem;
+    font-size: 1.95rem;
+    line-height: 2.6rem;
   }
 }
 </style>

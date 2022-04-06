@@ -1,16 +1,32 @@
 <template>
-  <nuxt-link v-if="routerLink" :to="to" :class="['BaseButton', className]">
+  <nuxt-link
+    v-if="routerLink"
+    :to="to"
+    :class="[
+      'BaseButton',
+      className,
+      {
+        'BaseButton--header': header,
+      },
+    ]"
+  >
     <img src="~/assets/icons/taster-book now.png" />
     <span>
       <slot />
     </span>
   </nuxt-link>
-
+  
   <a
     v-else-if="anchor"
     :href="href"
     :target="target"
-    :class="['BaseButton', className]"
+    :class="[
+      'BaseButton',
+      className,
+      {
+        'BaseButton--header': header,
+      },
+    ]"
   >
     <img src="~/assets/icons/taster-book now.png" />
     <span>
@@ -18,7 +34,17 @@
     </span>
   </a>
 
-  <button v-else :class="['BaseButton', className]" @click="onClick">
+  <button
+    v-else
+    :class="[
+      'BaseButton',
+      className,
+      {
+        'BaseButton--header': header,
+      },
+    ]"
+    @click="onClick"
+  >
     <img src="~/assets/icons/taster-book now.png" />
     <span>
       <slot />
@@ -59,6 +85,10 @@ export default {
       type: String,
       default: null,
     },
+    header: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>
@@ -70,9 +100,14 @@ export default {
   border: none;
   background: transparent;
   text-decoration: none;
-  max-width: 18rem;
   width: 100%;
   display: block;
+
+  max-width: 23.4rem;
+
+  @media only screen and (max-width: 992px) {
+    max-width: 14.4rem;
+  }
 
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-font-smoothing: antialiased;
@@ -102,10 +137,26 @@ export default {
     width: max-content;
 
     display: block;
-    font-size: 1.7rem;
-    line-height: 2.1rem;
-    font-weight: 600;
+
+    font-weight: 700;
     color: var(--black);
+
+    font-size: 2.2rem;
+    line-height: 2.7rem;
+
+    @media only screen and (max-width: 992px) {
+      font-size: 1.4rem;
+      line-height: 1.7rem;
+    }
+  }
+
+  &--header {
+    max-width: 18rem;
+
+    span {
+      font-size: 1.7rem;
+      line-height: 2.1rem;
+    }
   }
 }
 </style>

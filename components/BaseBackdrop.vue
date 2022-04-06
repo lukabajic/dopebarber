@@ -25,13 +25,14 @@ export default {
   height: 100vh;
   width: 100vw;
   animation: background 0.5s cubic-bezier(0.55, 0.055, 0.675, 0.19) both;
+  cursor: pointer;
 
   @keyframes background {
     from {
       background: transparent;
     }
     to {
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.8);
     }
   }
 }
