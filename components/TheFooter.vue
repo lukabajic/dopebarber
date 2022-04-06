@@ -101,7 +101,6 @@ export default {
 
   methods: {
     openNewTab(url) {
-      alert(url)
       window.open(url, '_blank')
     },
   },
