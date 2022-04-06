@@ -12,7 +12,9 @@
         />
       </template>
 
-      <base-button router-link to="/appointments" class-name="AboutDope__button"
+      <base-button
+        :on-click="toggleBooker"
+        class-name="AboutDope__button"
         >Book Now</base-button
       >
 
@@ -24,6 +26,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'AboutDope',
 
@@ -49,6 +53,10 @@ export default {
       if (!this.about) return null
       return this.about.workingTime
     },
+  },
+
+  methods: {
+    ...mapMutations(['toggleBooker']),
   },
 }
 </script>

@@ -11,10 +11,7 @@
         <img :src="prices" alt="Cenovnik" />
       </div>
 
-      <base-button
-        router-link
-        to="/appointments"
-        class-name="TeamMembers__button"
+      <base-button :on-click="toggleBooker" class-name="TeamMembers__button"
         >Book Now</base-button
       >
     </div>
@@ -22,6 +19,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'TeamMembers',
 
@@ -36,6 +35,10 @@ export default {
       required: false,
       default: null,
     },
+  },
+
+  methods: {
+    ...mapMutations(['toggleBooker']),
   },
 }
 </script>
