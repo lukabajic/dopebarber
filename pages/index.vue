@@ -241,6 +241,7 @@ export default {
   height: 100vh;
   width: 100%;
   max-width: 54rem;
+  background: #ffffff;
 
   &__close {
     position: absolute;

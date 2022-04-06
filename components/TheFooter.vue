@@ -67,13 +67,19 @@
     </div>
 
     <div class="TheFooter__chaos">
-      <div class="TheFooter__chaos-button-container">
+      <div
+        class="TheFooter__chaos-button-container"
+        @click="openNewTab('https://www.instagram.com/dope.belgrade')"
+      >
         <button
           class="TheFooter__chaos-button TheFooter__chaos-button--insta"
           v-html="insta"
         />
       </div>
-      <div class="TheFooter__chaos-button-container">
+      <div
+        class="TheFooter__chaos-button-container"
+        @click="openNewTab('https://www.youtube.com/')"
+      >
         <button
           class="TheFooter__chaos-button TheFooter__chaos-button--yt"
           v-html="yt"
@@ -91,6 +97,13 @@ export default {
     const insta = require(`~/assets/icons/logo-instagram.svg?raw`)
     const yt = require(`~/assets/icons/logo-youtube.svg?raw`)
     return { insta, yt }
+  },
+
+  methods: {
+    openNewTab(url) {
+      alert(url)
+      window.open(url, '_blank')
+    },
   },
 }
 </script>
@@ -129,7 +142,6 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    display: block;
     background: #d9d9d9;
     height: 10rem;
 
