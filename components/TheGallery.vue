@@ -39,7 +39,7 @@
           /></button
       ></template>
 
-      <base-button router-link to="/appointments" class="TheGallery__book-now"
+      <base-button :on-click="toggleBooker" class="TheGallery__book-now"
         >Book Now</base-button
       >
     </div>
@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'TheGallery',
 
@@ -65,6 +67,8 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['toggleBooker']),
+
     selectImage(img) {
       this.selectedImage = img
     },
