@@ -101,7 +101,7 @@ const ASSETS_IDS = [
   '2koAy4dQWMX2BK6uxNvzOd',
   '4gNmNzAhBDVcnhJrwk18pm',
   '4qt1wCP1cF8AcPApIWhqKu',
-  '',
+  '2jPm2HVMmRqJNmAyzUWaI1',
   '5QbS1zjwLn6mSWmG7Pm8oj',
 ]
 
@@ -387,16 +387,12 @@ export default {
 
   &__cover-logo {
     animation: fade-in 1s both;
-    @media only screen and (max-width: 768px) {
-      animation-delay: 4s;
-    }
+    animation-delay: 4s;
   }
 
   &__cover-msg {
     animation: fade-in 1s both;
-    @media only screen and (max-width: 768px) {
-      animation-delay: 5s;
-    }
+    animation-delay: 5s;
   }
 
   @keyframes fade-in {

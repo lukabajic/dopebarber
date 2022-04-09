@@ -104,7 +104,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    transform: translateX(-50%) rotate(-18deg);
+    transform: translateX(-50%) translateY(-40%) rotate(-18deg);
 
     img {
       width: 20rem;
